@@ -1,0 +1,38 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+pkgname=android-ndk-r10e-s-arm-gnutls
+pkgver=3.6.12
+pkgrel=1
+pkgdesc="GnuTLS is a secure communications library implementing the SSL, TLS and DTLS protocols and technologies around them."
+arch=('any')
+url=""
+groups=()
+depends=(
+  'android-ndk-r10e-s-arm'
+  'android-ndk-r10e-s-arm-gmp'
+)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+  "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.12.tar.xz"
+)
+md5sums=('a23900f14980a467bdce3a0fd31dfa18')
+
+noextract=()
+
+build() {
+  cd gnutls-"$pkgver"
+  unset CFLAGS CXXFLAGS
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot
+  make 
+}
+
+package() {
+  make DESTDIR="$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot install
+}

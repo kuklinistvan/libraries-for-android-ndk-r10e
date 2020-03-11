@@ -1,0 +1,43 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+pkgname=android-ndk-r10e-s-arm-ulfius
+pkgver=2.6.5
+pkgrel=1
+pkgdesc="Web Framework to build REST APIs, Webservices or any HTTP endpoint in C language."
+arch=('any')
+url=""
+groups=()
+depends=(
+  'android-ndk-r10e-s-arm'
+  'android-ndk-r10e-s-gnutls'
+)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+  "ulfius::git+https://github.com/babelouest/ulfius#tag=v$pkgver"
+)
+md5sums=('SKIP')
+noextract=()
+
+build() {
+  cd ulfius
+  mkdir -p r10e; cd r10e  
+
+  unset CFLAGS CXXFLAGS
+  
+  cmake .. \
+    -DCMAKE_TOOLCHAIN_FILE=/usr/ndk/r10e/standalone/armeabi/cmake.toolchain \
+    -DCMAKE_INSTALL_PREFIX="$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot
+
+  make 
+}
+
+package() {
+  make install
+}
