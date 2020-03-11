@@ -1,0 +1,45 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+pkgname=android-ndk-r10e-s-arm
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Android NDK revision 10e - Standalone version for ARMEABI"
+arch=('x86_64')
+url=""
+# license=('GPL')
+groups=()
+depends=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=("!strip")
+install=
+changelog=
+source=(
+  'https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip'
+  'cmake.toolchain'
+)
+noextract=()
+md5sums=('070be287539e3e7706f8dabfb6bf9879'
+         'd31c17a92a5313bfd5c49bbe0d6579c7')
+
+build() {
+  cd android-ndk-r10e
+  mkdir standalone
+  ./build/tools/make-standalone-toolchain.sh --arch=arm --install-dir=./standalone/armeabi
+}
+
+package() {
+  mkdir -p "$pkgdir"/usr/ndk/r10e
+  mv "$srcdir"/android-ndk-r10e/standalone "$pkgdir"/usr/ndk/r10e/standalone
+  chmod o+rX -R "$pkgdir"/usr/ndk/r10e/standalone
+  chmod o+rx -R "$pkgdir"/usr/ndk/r10e/standalone/armeabi/bin
+
+  mkdir -p "$pkgdir"/usr/bin
+  cd "$pkgdir"/usr/bin
+  ln -s ../../usr/ndk/r10e/standalone/armeabi/bin/arm-linux-androideabi-* .
+
+  mv "$srcdir"/cmake.toolchain "$pkgdir"/usr/ndk/r10e/standalone/armeabi
+}
