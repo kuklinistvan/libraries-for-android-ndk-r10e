@@ -14,7 +14,7 @@ provides=()
 conflicts=()
 replaces=()
 backup=()
-options=("!strip")
+options=("!strip" "staticlibs")
 install=
 changelog=
 source=(
@@ -33,7 +33,7 @@ build() {
 
 package() {
   mkdir -p "$pkgdir"/usr/ndk/r10e
-  mv "$srcdir"/android-ndk-r10e/standalone "$pkgdir"/usr/ndk/r10e/standalone
+  cp -r "$srcdir"/android-ndk-r10e/standalone "$pkgdir"/usr/ndk/r10e/standalone
   chmod o+rX -R "$pkgdir"/usr/ndk/r10e/standalone
   chmod o+rx -R "$pkgdir"/usr/ndk/r10e/standalone/armeabi/bin
 
