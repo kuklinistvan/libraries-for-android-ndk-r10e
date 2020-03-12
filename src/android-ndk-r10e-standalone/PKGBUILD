@@ -41,5 +41,5 @@ package() {
   cd "$pkgdir"/usr/bin
   ln -s ../../usr/ndk/r10e/standalone/armeabi/bin/arm-linux-androideabi-* .
 
-  mv "$srcdir"/cmake.toolchain "$pkgdir"/usr/ndk/r10e/standalone/armeabi
+  cp -L "$srcdir"/cmake.toolchain "$pkgdir"/usr/ndk/r10e/standalone/armeabi
 }

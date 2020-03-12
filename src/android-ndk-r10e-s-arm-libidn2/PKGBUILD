@@ -1,0 +1,45 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+baselibname=libidn2
+pkgname=android-ndk-r10e-s-arm-"$baselibname"
+pkgver=2.0.5
+pkgrel=1
+pkgdesc="Libidn's purpose is to encode and decode internationalized domain names."
+arch=('any')
+
+depends=(
+  'android-ndk-r10e-s-arm'
+)
+
+options=("!strip" "staticlibs")
+
+source=(
+  "https://ftp.gnu.org/gnu/libidn/libidn2-$pkgver.tar.gz"
+)
+md5sums=('eaf9a5b9d03b0cce3760f34b3124eb36')
+
+build() {
+  cd "$baselibname"-"$pkgver"
+  unset CFLAGS CXXFLAGS
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
+  make 
+}
+
+package() {
+  cd "$srcdir"/"$baselibname"-"$pkgver"
+  make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+}
+
+# Unused options:
+
+url=""
+groups=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install=
+changelog=
+noextract=()

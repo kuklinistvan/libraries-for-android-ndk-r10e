@@ -12,19 +12,35 @@ depends=(
   'android-ndk-r10e-s-arm-libmicrohttpd'
   'android-ndk-r10e-s-arm-jansson'
   'android-ndk-r10e-s-arm-curl'
+  'android-ndk-r10e-s-arm-libidn2=2.0.5'
 )
 
 options=("!strip" "staticlibs")
 
 source=(
   "$baselibname::git+https://github.com/babelouest/ulfius#tag=v$pkgver"
+  "0001-Orcania-Yder-from-scratch-bug.patch"
 )
-md5sums=('SKIP')
+md5sums=('SKIP'
+         '515e851c539776309dfa57b7f97935bb')
+
+prepare() {
+    cd "$baselibname"
+    git apply "$srcdir"/0001-Orcania-Yder-from-scratch-bug.patch
+}
 
 build() {
   cd "$baselibname"
   unset CFLAGS CXXFLAGS
-  cmake -DCMAKE_TOOLCHAIN_FILE=/usr/ndk/r10e/standalone/armeabi/cmake.toolchain -DCMAKE_INSTALL_PREFIX=/usr/ndk/r10e/standalone/armeabi/sysroot/usr/ -DCMAKE_IGNORE_PATH="/usr/local/lib;/usr/lib" -DWITH_JOURNALD=Off
+  export LDFLAGS="$LDFLAGS -lm"
+  cmake \
+    -DCMAKE_TOOLCHAIN_FILE=/usr/ndk/r10e/standalone/armeabi/cmake.toolchain \
+    -DCMAKE_INSTALL_PREFIX=/usr/ndk/r10e/standalone/armeabi/sysroot/usr/ \
+    -DCMAKE_IGNORE_PATH="/usr/local/lib;/usr/lib" \
+    -DWITH_JOURNALD=Off \
+    -DSEARCH_YDER=On \
+    -DSEARCH_ORCANIA=On \
+    -DBUILD_STATIC=On
   make 
 }
 
