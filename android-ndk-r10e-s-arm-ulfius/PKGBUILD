@@ -1,0 +1,49 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+baselibname=ulfius
+pkgname=android-ndk-r10e-s-arm-"$baselibname"
+pkgver=2.6.5
+pkgrel=1
+pkgdesc="Web Framework to build REST APIs, Webservices or any HTTP endpoint in C language."
+arch=('any')
+
+depends=(
+  'android-ndk-r10e-s-arm'
+  'android-ndk-r10e-s-arm-gnutls'
+  'android-ndk-r10e-s-arm-libmicrohttpd'
+  'android-ndk-r10e-s-arm-jansson'
+  'android-ndk-r10e-s-arm-curl'
+)
+
+options=("!strip" "staticlibs")
+
+source=(
+  "$baselibname::git+https://github.com/babelouest/ulfius#tag=v$pkgver"
+)
+md5sums=('SKIP')
+
+build() {
+  cd "$baselibname"
+  unset CFLAGS CXXFLAGS
+  cmake -DCMAKE_TOOLCHAIN_FILE=/usr/ndk/r10e/standalone/armeabi/cmake.toolchain -DCMAKE_INSTALL_PREFIX=/usr/ndk/r10e/standalone/armeabi/sysroot/usr/ -DCMAKE_IGNORE_PATH="/usr/local/lib;/usr/lib" -DWITH_JOURNALD=Off
+  make 
+}
+
+package() {
+  cd "$srcdir"/"$baselibname"
+  make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+}
+
+# Unused options:
+
+url=""
+groups=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install=
+changelog=
+noextract=()

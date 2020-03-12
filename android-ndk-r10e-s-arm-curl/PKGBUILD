@@ -1,40 +1,45 @@
 # Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
-baselibname=gmp
+baselibname=curl
 pkgname=android-ndk-r10e-s-arm-"$baselibname"
-pkgver=6.2.0
+pkgver=7.69.1
 pkgrel=1
-pkgdesc="A free library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers."
+pkgdesc="An URL retrieval utility and library"
 arch=('any')
-url=""
-groups=()
+
 depends=(
   'android-ndk-r10e-s-arm'
 )
+
+options=("!strip" "staticlibs")
+
+source=(
+  "https://curl.haxx.se/download/curl-$pkgver.tar.gz"
+)
+md5sums=('b9bb5e11d579425154a9f97ed44be9b8')
+
+build() {
+  cd "$baselibname"-"$pkgver"
+  unset CFLAGS CXXFLAGS
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
+  make 
+}
+
+package() {
+  cd "$srcdir"/"$baselibname"-"$pkgver"
+  make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+}
+
+# Unused options:
+
+url=""
+groups=()
 makedepends=()
 optdepends=()
 provides=()
 conflicts=()
 replaces=()
 backup=()
-options=("!strip" "staticlibs")
 install=
 changelog=
-source=(
-  "https://gmplib.org/download/gmp/gmp-$pkgver.tar.xz"
-)
-md5sums=('a325e3f09e6d91e62101e59f9bda3ec1')
-
 noextract=()
-
-build() {
-  cd "$baselibname"-"$pkgver"
-  unset CFLAGS CXXFLAGS
-  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
-  make
-}
-
-package() {
-  cd "$srcdir"/gmp-"$pkgver"
-  make DESTDIR="$pkgdir" install
-  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
-}

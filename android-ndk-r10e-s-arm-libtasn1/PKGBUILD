@@ -1,0 +1,47 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+baselibname=libtasn1
+pkgname=android-ndk-r10e-s-arm-"$baselibname"
+pkgver=4.16.0
+pkgrel=1
+pkgdesc="Libtasn1 is the ASN.1 library used by GnuTLS, p11-kit and some other packages. It was originally written by Fabio Fiorina, and now maintained as a GNU package."
+arch=('any')
+
+depends=(
+  'android-ndk-r10e-s-arm'
+)
+
+options=("!strip" "staticlibs")
+
+source=(
+  "https://ftp.gnu.org/gnu/libtasn1/libtasn1-$pkgver.tar.gz"
+)
+md5sums=('531208de3729d42e2af0a32890f08736')
+
+build() {
+  cd "$baselibname"-"$pkgver"
+  unset CFLAGS CXXFLAGS
+  export CFLAGS=-std=c99
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
+  make 
+}
+
+package() {
+  cd "$srcdir"/"$baselibname"-"$pkgver"
+  make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+}
+
+
+# Unused options:
+
+url=""
+groups=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install=
+changelog=
+noextract=()

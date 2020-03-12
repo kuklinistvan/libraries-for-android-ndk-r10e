@@ -1,0 +1,47 @@
+# Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
+baselibname=jansson
+pkgname=android-ndk-r10e-s-arm-"$baselibname"
+pkgver=2.12
+pkgrel=1
+pkgdesc="Jansson is a C library for encoding, decoding and manipulating JSON data."
+arch=('any')
+
+depends=(
+  'android-ndk-r10e-s-arm'
+)
+
+options=("!strip" "staticlibs")
+
+source=(
+  "http://www.digip.org/jansson/releases/jansson-$pkgver.tar.gz"
+)
+md5sums=('0ed1f3a924604aae68067c214b0010ef')
+
+
+build() {
+  cd "$baselibname"-"$pkgver"
+  unset CFLAGS CXXFLAGS
+  export LDFLAGS="$LFLAGS -lm"
+  cmake -DCMAKE_TOOLCHAIN_FILE=/usr/ndk/r10e/standalone/armeabi/cmake.toolchain -DCMAKE_INSTALL_PREFIX=/usr/ndk/r10e/standalone/armeabi/sysroot/usr/
+  make 
+}
+
+package() {
+  cd "$srcdir"/"$baselibname"-"$pkgver"
+  make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+}
+
+# Unused options:
+
+url=""
+groups=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install=
+changelog=
+noextract=()

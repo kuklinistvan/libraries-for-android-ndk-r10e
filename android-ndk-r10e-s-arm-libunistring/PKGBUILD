@@ -1,18 +1,14 @@
 # Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
-baselibname=gnutls
+baselibname=libunistring
 pkgname=android-ndk-r10e-s-arm-"$baselibname"
-pkgver=3.6.12
+pkgver=0.9.10
 pkgrel=1
-pkgdesc="GnuTLS is a secure communications library implementing the SSL, TLS and DTLS protocols and technologies around them."
+pkgdesc="This library provides functions for manipulating Unicode strings and for manipulating C strings according to the Unicode standard."
 arch=('any')
 url=""
 groups=()
 depends=(
   'android-ndk-r10e-s-arm'
-  'android-ndk-r10e-s-arm-gmp'
-  'android-ndk-r10e-s-arm-libunistring'
-  'android-ndk-r10e-s-arm-nettle'
-  'android-ndk-r10e-s-arm-libtasn1'
 )
 makedepends=()
 optdepends=()
@@ -24,17 +20,17 @@ options=("!strip" "staticlibs")
 install=
 changelog=
 source=(
-  "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.12.tar.xz"
+  "https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.gz"
 )
-md5sums=('a23900f14980a467bdce3a0fd31dfa18')
+md5sums=('0d3274e9838396b12200f8b54ddaf43b')
 
 noextract=()
 
 build() {
   cd "$baselibname"-"$pkgver"
   unset CFLAGS CXXFLAGS
-  ./configure --without-p11-kit --disable-cxx --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
-  make 
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
+  make
 }
 
 package() {

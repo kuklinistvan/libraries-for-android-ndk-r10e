@@ -1,18 +1,14 @@
 # Maintainer: Kuklin István Alexander <istvan@codekuklin.com>
-baselibname=gnutls
+baselibname=nettle
 pkgname=android-ndk-r10e-s-arm-"$baselibname"
-pkgver=3.6.12
+pkgver=3.5.1
 pkgrel=1
-pkgdesc="GnuTLS is a secure communications library implementing the SSL, TLS and DTLS protocols and technologies around them."
+pkgdesc="Nettle is a cryptographic library that is designed to fit easily in more or less any context: In crypto toolkits for object-oriented languages (C++, Python, Pike, ...), in applications like LSH or GNUPG, or even in kernel space."
 arch=('any')
 url=""
 groups=()
 depends=(
   'android-ndk-r10e-s-arm'
-  'android-ndk-r10e-s-arm-gmp'
-  'android-ndk-r10e-s-arm-libunistring'
-  'android-ndk-r10e-s-arm-nettle'
-  'android-ndk-r10e-s-arm-libtasn1'
 )
 makedepends=()
 optdepends=()
@@ -24,16 +20,16 @@ options=("!strip" "staticlibs")
 install=
 changelog=
 source=(
-  "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.12.tar.xz"
+  "https://ftp.gnu.org/gnu/nettle/nettle-$pkgver.tar.gz"
 )
-md5sums=('a23900f14980a467bdce3a0fd31dfa18')
+md5sums=('0e5707b418c3826768d41130fbe4ee86')
 
 noextract=()
 
 build() {
   cd "$baselibname"-"$pkgver"
   unset CFLAGS CXXFLAGS
-  ./configure --without-p11-kit --disable-cxx --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
   make 
 }
 
