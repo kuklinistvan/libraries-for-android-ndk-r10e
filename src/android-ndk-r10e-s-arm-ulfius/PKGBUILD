@@ -34,8 +34,8 @@ build() {
   unset CFLAGS CXXFLAGS
   export LDFLAGS="$LDFLAGS -lm"
   cmake \
-    -DCMAKE_TOOLCHAIN_FILE=/usr/ndk/r10e/standalone/armeabi/cmake.toolchain \
-    -DCMAKE_INSTALL_PREFIX=/usr/ndk/r10e/standalone/armeabi/sysroot/usr/ \
+    -DCMAKE_TOOLCHAIN_FILE=/usr/android-ndk/r10e/standalone/armeabi/cmake.toolchain \
+    -DCMAKE_INSTALL_PREFIX=/usr/android-ndk/r10e/standalone/armeabi/sysroot/usr/ \
     -DCMAKE_IGNORE_PATH="/usr/local/lib;/usr/lib" \
     -DWITH_JOURNALD=Off \
     -DSEARCH_YDER=On \
@@ -47,7 +47,7 @@ build() {
 package() {
   cd "$srcdir"/"$baselibname"
   make DESTDIR="$pkgdir" install
-  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+  rm -rf "$pkgdir"/usr/android-ndk/r10e/standalone/armeabi/sysroot/usr/share/info
 }
 
 # Unused options:

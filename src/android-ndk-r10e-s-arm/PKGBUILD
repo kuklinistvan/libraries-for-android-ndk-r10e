@@ -32,14 +32,14 @@ build() {
 }
 
 package() {
-  mkdir -p "$pkgdir"/usr/ndk/r10e
-  cp -r "$srcdir"/android-ndk-r10e/standalone "$pkgdir"/usr/ndk/r10e/standalone
-  chmod o+rX -R "$pkgdir"/usr/ndk/r10e/standalone
-  chmod o+rx -R "$pkgdir"/usr/ndk/r10e/standalone/armeabi/bin
+  mkdir -p "$pkgdir"/usr/android-ndk/r10e
+  cp -r "$srcdir"/android-ndk-r10e/standalone "$pkgdir"/usr/android-ndk/r10e/standalone
+  chmod o+rX -R "$pkgdir"/usr/android-ndk/r10e/standalone
+  chmod o+rx -R "$pkgdir"/usr/android-ndk/r10e/standalone/armeabi/bin
 
   mkdir -p "$pkgdir"/usr/bin
   cd "$pkgdir"/usr/bin
-  ln -s ../../usr/ndk/r10e/standalone/armeabi/bin/arm-linux-androideabi-* .
+  ln -s ../../usr/android-ndk/r10e/standalone/armeabi/bin/arm-linux-androideabi-* .
 
-  cp -L "$srcdir"/cmake.toolchain "$pkgdir"/usr/ndk/r10e/standalone/armeabi
+  cp -L "$srcdir"/cmake.toolchain "$pkgdir"/usr/android-ndk/r10e/standalone/armeabi
 }
