@@ -23,7 +23,7 @@ source=(
 )
 noextract=()
 md5sums=('070be287539e3e7706f8dabfb6bf9879'
-         'd31c17a92a5313bfd5c49bbe0d6579c7')
+         '5f92ac2ca02508c83e31bee21bb68631')
 
 build() {
   cd android-ndk-r10e

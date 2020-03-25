@@ -37,4 +37,5 @@ package() {
   cd "$srcdir"/"$baselibname"-"$pkgver"
   make DESTDIR="$pkgdir" install
   rm -rf "$pkgdir"/usr/android-ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+  rm -f "$pkgdir"/usr/android-ndk/r10e/standalone/armeabi/sysroot/usr/lib/charset.alias
 }

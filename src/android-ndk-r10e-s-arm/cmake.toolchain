@@ -1,3 +1,3 @@
 set(CMAKE_SYSTEM_NAME Android)
-set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN /usr/ndk/r10e/standalone/armeabi)
-include_directories("/usr/ndk/r10e/standalone/armeabi/include")
+set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN /usr/android-ndk/r10e/standalone/armeabi)
+include_directories("/usr/android-ndk/r10e/standalone/armeabi/include")
