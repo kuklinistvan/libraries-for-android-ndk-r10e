@@ -6,5 +6,5 @@ RUN useradd builder
 RUN pacman --noconfirm -S sudo
 RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN pacman --noconfirm -S rsync
-
+RUN pacman --noconfirm -S cmake
 
