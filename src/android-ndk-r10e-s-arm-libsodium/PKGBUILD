@@ -19,14 +19,14 @@ source=(
 build() {
   cd libsodium-stable
   unset CFLAGS CXXFLAGS
-  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/ndk/r10e/standalone/armeabi/sysroot/usr
+  ./configure --enable-static --host=arm-linux-androideabi --prefix=/usr/android-ndk/r10e/standalone/armeabi/sysroot/usr
   make 
 }
 
 package() {
   cd "$srcdir"/libsodium-stable
   make DESTDIR="$pkgdir" install
-  rm -rf "$pkgdir"/usr/ndk/r10e/standalone/armeabi/sysroot/usr/share/info
+  rm -rf "$pkgdir"/usr/android-ndk/r10e/standalone/armeabi/sysroot/usr/share/info
 }
 
 md5sums=('5c77950500322b414389d16ed743aab3')
