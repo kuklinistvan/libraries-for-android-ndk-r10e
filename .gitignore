@@ -1,0 +1,4 @@
+conan/**/*
+!conan/*
+!conan/*/conanfile.py
+.vscode
