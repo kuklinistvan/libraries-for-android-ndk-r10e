@@ -10,3 +10,6 @@ class LibidnConan(AutotoolsTemplate):
     def configure(self):
         self.archive_url_prefix = "https://ftp.gnu.org/gnu/libidn/"
         self.setup_template_vars()
+
+    def package_info(self):
+        self.cpp_info.libs = ["idn2"]

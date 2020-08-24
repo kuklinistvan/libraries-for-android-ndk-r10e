@@ -15,3 +15,6 @@ class GmpConan(AutotoolsTemplate):
     def package(self):
         os.environ['CFLAGS'] = '-std=c99'
         super().package()
+
+    def package_info(self):
+        self.cpp_info.libs = ['tasn1']

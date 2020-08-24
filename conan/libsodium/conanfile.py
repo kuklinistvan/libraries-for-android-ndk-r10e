@@ -21,3 +21,6 @@ class LibsodiumConan(AutotoolsTemplate):
 
         curl(url, target)
         assert 0 == call(['tar', 'xvf', str(target)])
+
+    def package_info(self):
+        self.cpp_info.libs = ["sodium"]

@@ -11,3 +11,6 @@ class LibmicrohttpdConan(AutotoolsTemplate):
         self.configure_additional_args = ['--disable-examples', '--enable-static']
         self.archive_url_prefix = "https://ftp.gnu.org/gnu/libmicrohttpd/"
         self.setup_template_vars()
+
+    def package_info(self):
+        self.cpp_info.libs = ["microhttpd"]
