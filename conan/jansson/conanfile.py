@@ -1,25 +1,18 @@
 from conans import ConanFile, CMake
 from pykuklin.downloader import get_downloader_available_in_current_environment, Path
+from pykuklin.conan.templates.AutotoolsTemplate import AutotoolsTemplate
 
 downloader = get_downloader_available_in_current_environment()
 
-class ConanFileImpl(ConanFile):
-    name = "jansson"
-    version = "2.12"
+class ConanfileImpl(AutotoolsTemplate):
+    def set_name(self):
+        self.name = "jansson"
 
-    def source(self):
-        basename = "jansson-{}.tar.gz".format(self.version)
-        url = "http://www.digip.org/jansson/releases/" + basename
-        downloader(url, Path(basename))
-        self.run("tar xvf " + str(basename))
+    def set_version(self):
+        self.version = "2.12"
 
-    def build(self):
-        sf = self.name + '-' + self.version
+    def configure(self):
+        self.archive_format_file_suffix = ".tar.bz2"
+        self.archive_url_prefix = "http://digip.org/jansson/releases/"
+        self.setup_template_vars()
 
-        cmake = CMake(self)
-        cmake.configure(source_folder=sf)
-        cmake.build()
-
-    def package(self):
-        cmake = CMake(self)
-        cmake.install()

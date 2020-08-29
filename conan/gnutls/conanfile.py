@@ -1,6 +1,9 @@
 from pykuklin.conan.templates.AutotoolsTemplate import AutotoolsTemplate
 
-class ConanfileImpl(AutotoolsTemplate):  
+from conans import RunEnvironment
+from conans.tools import environment_append
+
+class ConanfileImpl(AutotoolsTemplate):
     def set_name(self):
         self.name = "gnutls"
 
@@ -9,7 +12,7 @@ class ConanfileImpl(AutotoolsTemplate):
 
     def requirements(self):
         self.requires("gmp/[>= 6.2.0]")
-        self.requires("nettle/[>= 3.5.1]")
+        self.requires("nettle/3.5.1")
         self.requires("libtasn1/[>= 4.16.0]")
         self.requires("libunistring/[>= 0.9.10]")
 
@@ -25,3 +28,7 @@ class ConanfileImpl(AutotoolsTemplate):
             '--enable-local-libopts',
             '--disable-doc'
         ]
+
+    def package(self):
+        with environment_append(RunEnvironment(self).vars):
+            super().package()
