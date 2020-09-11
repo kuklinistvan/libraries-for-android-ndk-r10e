@@ -1,0 +1,28 @@
+--- configure.ac.orig	2020-09-11 13:04:47.346982217 +0200
++++ configure.ac	2020-09-11 14:01:02.120995032 +0200
+@@ -214,7 +214,7 @@
+ # Other definitions.
+ have_w32_system=no
+ have_w32ce_system=no
+-have_pthread=no
++have_pthread=yes
+ 
+ 
+ # Setup some stuff depending on host.
+@@ -745,15 +745,7 @@
+ AC_SUBST(PTH_CFLAGS)
+ AC_SUBST(PTH_LIBS)
+ 
+-#
+-# Check whether pthreads is available
+-#
+-if test "$have_w32_system" != yes; then
+-  AC_CHECK_LIB(pthread,pthread_create,have_pthread=yes)
+-  if test "$have_pthread" = yes; then
+-    AC_DEFINE(HAVE_PTHREAD, 1 ,[Define if we have pthread.])
+-  fi
+-fi
++AC_DEFINE(HAVE_PTHREAD, 1 ,[Define if we have pthread.])
+ 
+ 
+ # Solaris needs -lsocket and -lnsl. Unisys system includes
