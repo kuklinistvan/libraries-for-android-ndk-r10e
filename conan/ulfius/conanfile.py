@@ -28,10 +28,11 @@ class ConanFileImpl(ConanFile):
         sf = "ulfius"
         cmake = CMake(self)
     
-        with build_env_vars_set(self):
+        with build_env_vars_set(self, libs_as_ldflags=True):
             cmake.definitions['CMAKE_IGNORE_PATH'] = '/usr/local/lib;/usr/lib;/lib'
             cmake.definitions['CMAKE_MODULE_PATH'] = os.getcwd()
             cmake.definitions['WITH_JOURNALD'] = 'Off'
+            cmake.definitions['BUILD_STATIC'] = 'On'
             cmake.configure(source_folder=sf)
             cmake.build()
 
