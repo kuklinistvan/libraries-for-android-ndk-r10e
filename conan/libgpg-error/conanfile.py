@@ -14,4 +14,3 @@ class ConanfileImpl(AutotoolsTemplate):
 
     def package_info(self):
         self.cpp_info.libs = ["gpg-error"]
-        self.cpp_info.sharedlinkflags = ["-lgpg-error"]

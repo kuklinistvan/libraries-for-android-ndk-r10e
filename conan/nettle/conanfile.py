@@ -15,4 +15,3 @@ class ConanfileImpl(AutotoolsTemplate):
 
     def package_info(self):
         self.cpp_info.libs = ['nettle', 'hogweed']
-        self.cpp_info.sharedlinkflags = ['-lnettle', '-lhogweed']

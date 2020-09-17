@@ -13,4 +13,3 @@ class ConanfileImpl(AutotoolsTemplate):
 
     def package_info(self):
         self.cpp_info.libs = ["unistring"]
-        self.cpp_info.sharedlinkflags = ["-lunistring"]
