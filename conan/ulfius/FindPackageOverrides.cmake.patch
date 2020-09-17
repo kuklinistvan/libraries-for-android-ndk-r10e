@@ -1,17 +1,6 @@
-From ba96952372cf6972d66309223919b6a39e5236dc Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Kuklin=20Istv=C3=A1n=20Alexander?= <istvan@codekuklin.com>
-Date: Wed, 16 Sep 2020 13:54:36 +0200
-Subject: [PATCH] CMakeLists.txt findpackage conan hack
-
----
- CMakeLists.txt | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
-
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index e813e5c..7f1989a 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -61,7 +61,7 @@ set(YDER_VERSION_REQUIRED "1.4.9")
+--- CMakeLists.txt	2020-09-17 15:44:13.219987285 +0200
++++ CMakeLists.txt.mod	2020-09-17 15:42:44.639987473 +0200
+@@ -61,7 +61,7 @@
  
  # cmake modules
  
@@ -20,7 +9,7 @@ index e813e5c..7f1989a 100644
  
  include(GNUInstallDirs)
  include(CheckSymbolExists)
-@@ -109,8 +109,7 @@ set(LIBS ${LIBS} ${CMAKE_THREAD_LIBS_INIT})
+@@ -109,8 +109,7 @@
  option(WITH_GNUTLS "GNU TLS support" ON)
  
  if (WITH_GNUTLS)
@@ -30,7 +19,7 @@ index e813e5c..7f1989a 100644
      if (GNUTLS_FOUND)
          set(LIBS ${LIBS} ${GNUTLS_LIBRARIES})
      endif ()
-@@ -141,9 +140,8 @@ else ()
+@@ -141,9 +140,8 @@
      set(U_DISABLE_GNUTLS ON)
  endif ()
  
@@ -42,7 +31,7 @@ index e813e5c..7f1989a 100644
      set(LIBS ${LIBS} ${MHD_LIBRARIES})
      include_directories(${MHD_INCLUDE_DIRS})
      if (MHD_VERSION_STRING VERSION_LESS "0.9.53")
-@@ -160,8 +158,7 @@ endif ()
+@@ -160,8 +158,7 @@
  option(WITH_CURL "Use Curl library" ON)
  
  if (WITH_CURL)
@@ -52,6 +41,20 @@ index e813e5c..7f1989a 100644
      if (CURL_FOUND)
          set(LIBS ${LIBS} ${CURL_LIBRARIES})
          include_directories(${CURL_INCLUDE_DIRS})
--- 
-2.28.0
-
+@@ -174,12 +171,11 @@
+ option(WITH_JANSSON "Use jansson library" ON)
+ 
+ if (WITH_JANSSON)
+-    include(FindJansson)
+     set(JANSSON_MIN_VERSION 2.4)
+-    find_package(Jansson ${JANSSON_MIN_VERSION} REQUIRED)
+-    if (JANSSON_FOUND)
+-        include_directories(${JANSSON_INCLUDE_DIRS})
+-        set(LIBS ${LIBS} ${JANSSON_LIBRARIES})
++    find_package(jansson ${JANSSON_MIN_VERSION} REQUIRED)
++    if (jansson_FOUND)
++        include_directories(${jansson_INCLUDE_DIRS})
++        set(LIBS ${LIBS} ${jansson_LIBRARIES})
+         set(U_DISABLE_JANSSON OFF)
+     endif ()
+ else ()
