@@ -9,13 +9,14 @@ downloader = get_downloader_available_in_current_environment()
 class ConanFileImpl(ConanFile):
     name = "ulfius"
     version = "2.6.5"
-    exports_sources = "0001-Orcania-Yder-from-scratch-bug.patch"
     
     requires = "gnutls/3.6.12", "libmicrohttpd/0.9.70", "jansson/2.12", "curl/7.71.1", "libidn2/2.0.5"
     # warning: not compatible with libmicrohttpd/0.9.71
 
     exports_sources = "*.patch"    
     generators = "cmake_find_package"
+
+    settings = "os", "compiler", "build_type", "arch"
    
 
     def source(self):

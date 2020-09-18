@@ -4,7 +4,7 @@ from conans import RunEnvironment
 from conans.tools import environment_append
 
 class ConanfileImpl(AutotoolsTemplate):
-    requires = "gmp/6.2.0", "nettle/3.5.1", "libtasn1/4.16.0"
+    requires = "gmp/6.2.0", "nettle/3.5.1", "libtasn1/4.16.0", "libunistring/0.9.10"
 
     def set_name(self):
         self.name = "gnutls"
