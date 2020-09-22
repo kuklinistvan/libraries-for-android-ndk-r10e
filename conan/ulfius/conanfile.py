@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools, AutoToolsBuildEnvironment
+from conans import ConanFile, CMake, tools
 from pykuklin.downloader import get_downloader_available_in_current_environment, Path
 from pykuklin.conan.tools import build_env_vars_set
 from pykuklin.shellutils import working_directory
@@ -43,3 +43,6 @@ class ConanFileImpl(ConanFile):
         with tools.environment_append(self.env):
             cmake = CMake(self)
             cmake.install()
+
+    def package_info(self):
+        self.cpp_info.libs = ['ulfius', 'orcania', 'yder']
