@@ -1,9 +1,0 @@
-version: "2.4"
-services:
-  builder:
-    image: android-ndk-r10e-libs-build-env
-    volumes:
-      - ..:/build
-      - ./scripts:/scripts
-      - ./output:/output
-    entrypoint: /scripts/entry.sh
