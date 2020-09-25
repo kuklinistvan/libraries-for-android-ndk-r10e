@@ -7,3 +7,4 @@ As of writing, it contains only the library [Ulfius 2.6.5](https://github.com/ba
 ## Architectures
 
 I'm targeting ARM CPUs without a dedicated FPU (also called sometimes "soft float" CPUs). In theory, you can recompile these libraries against other versions of NDK as well.
+
