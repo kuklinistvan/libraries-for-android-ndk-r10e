@@ -31,7 +31,12 @@ class ConanFileImpl(ConanFile):
         sf = "ulfius"
         cmake = CMake(self, parallel=False)
     
-        with build_env_vars_set(self, libs_as_ldflags=True, cxxflags_to_cflags=True):
+        with build_env_vars_set(
+            self,
+            libs_as_ldflags=True,
+            cxxflags_to_cflags=True,
+            additional_vars_to_merge={'CXXFLAGS': ' -fPIC', 'CFLAGS': ' -fPIC'}):
+
             cmake.definitions['CMAKE_IGNORE_PATH'] = '/usr/local/lib;/usr/lib;/lib'
             cmake.definitions['WITH_JOURNALD'] = 'Off'
             cmake.definitions['BUILD_STATIC'] = 'On'

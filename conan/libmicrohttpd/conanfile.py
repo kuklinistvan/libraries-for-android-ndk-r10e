@@ -1,6 +1,11 @@
 from pykuklin.conan.templates.AutotoolsTemplate import AutotoolsTemplate
 
 class LibmicrohttpdConan(AutotoolsTemplate):
+
+    def __init__(self, output, runner, display_name="", user=None, channel=None):
+        super().__init__(output, runner, display_name, user, channel)
+        self.add_fpic = True
+
     def set_name(self):
         self.name = "libmicrohttpd"
 
