@@ -25,7 +25,8 @@ class ConanfileImpl(AutotoolsTemplate):
             '--disable-guile',
             '--enable-local-libopts',
             '--disable-doc',
-            '--with-included-unistring'
+            '--with-included-unistring',
+            '--with-pic'
         ]
 
         super().configure()
